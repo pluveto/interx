@@ -1,0 +1,19 @@
+[profile]
+[.general]
+name="Johnny Silverhand"
+email="johnny@superband.com"
+age="21"
+[.address]
+street="1234 Main Street"
+city="New York"
+state="NY"
+zip="12345"
+[data]
+[.fingerprints]
+key1="value1"
+key2="value2"
+key3="value3"
+[.other]
+keyA="valueA"
+keyB="valueB"
+keyC="valueC"
