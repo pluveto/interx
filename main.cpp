@@ -1,4 +1,5 @@
 #include "parser.tab.hh"
+#include "stdlib.h"
 #include <functional>
 #include "interpreter.h"
 
@@ -43,13 +44,17 @@ int main(int argc, char const *argv[]) {
     auto filename = argv[1];
     guard g([&]() { yyin = fopen(filename, "r"); },
             [&]() { fclose(yyin); });
- 
+    // -- check if file is valid
+    if (yyin == nullptr) {
+        std::cout << "failed to open file: " << filename << std::endl;
+        return EXIT_FAILURE;
+    }
     // parse
     yy::parser parser;
     auto ret = parser.parse();
     if (ret != 0) {
         std::cout << "parse failed" << std::endl;
-        return 1;
+        return EXIT_FAILURE;
     }
 #ifdef DEBUG
     std::cout << root->to_string() << std::endl;

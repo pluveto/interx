@@ -3,22 +3,43 @@
 #include <boost/regex.hpp>
 #include <iostream>
 
+/**
+ * @brief Interpreter for executing the AST
+ */
 class Interpreter {
+    /**
+     * @brief root node of the AST
+     */
     TransUnit *root;
+    /**
+     * @brief Every section has its own environment, so this is a map from
+     * section to environment
+     */
     std::unordered_map<Section *, Environment> envs;
+    /**
+     * @brief an index from section name to section
+     */
     std::unordered_map<std::string, Section *> nodes;
+    /**
+     * @brief this is used to store the previous node, so that we can use $prev
+     * in the next node
+     */
     Section *prev = nullptr;
 
   public:
     Interpreter(TransUnit *root) : root(root) {}
-
+    /**
+     * @brief  Initialize the environment
+     */
     void init_env() {
         for (auto &section : root->sections) {
             envs[section.get()] = Environment();
             nodes[section->name] = section.get();
         }
     }
-
+    /**
+     * @brief Interpret the AST
+     */
     void interpret() {
         init_env();
         prev = nullptr;
@@ -28,8 +49,9 @@ class Interpreter {
             try {
                 nextNode = interpret_node(curNode);
             } catch (const std::exception &e) {
-                std::cerr << "Encounter some error, please retry. detail: error at "
-                          << e.what() << '\n';
+                std::cerr
+                    << "Encounter some error, please retry. detail: error at "
+                    << e.what() << '\n';
                 nextNode = curNode;
             }
         };
@@ -71,11 +93,15 @@ class Interpreter {
         bool term;
         std::tie(uncondNode, term) = find_uncond_node(node);
         if (term) {
+#ifdef DEBUG
             printf("[DEBUG] terminating\n");
+#endif
             return nullptr;
         }
         if (uncondNode) {
+#ifdef DEBUG
             printf("[DEBUG] found uncond node: %s\n", uncondNode->name.c_str());
+#endif
             return uncondNode;
         }
         std::string input;
@@ -114,18 +140,22 @@ class Interpreter {
                       << std::endl;
             return node;
         }
+#ifdef DEBUG
         printf("[DEBUG] %s is true, next is %s\n",
                matchCond->to_string().c_str(), ret->name.c_str());
+#endif
         return ret;
     }
 
     /**
-     * BinOpExpr
-     * UnaryExpr
-     * CallExpr
-     * IDExpr
-     * NumberExpr
-     * StringExpr
+     * @brief Evaluate an expression
+     * Allowing types:
+     * + BinOpExpr
+     * + UnaryExpr
+     * + CallExpr
+     * + IDExpr
+     * + NumberExpr
+     * + StringExpr
      */
     EvalResult eval_expr(Environment *env, Expr *expr) {
         if (auto binOp = dynamic_cast<BinOpExpr *>(expr)) {
@@ -162,7 +192,7 @@ class Interpreter {
                 return EvalResult(lhs.num_val != rhs.num_val);
             } else {
                 std::cerr << "unknown op: " << op << std::endl;
-                exit(1);
+                exit(EXIT_FAILURE);
             }
         } else if (auto unary = dynamic_cast<UnaryExpr *>(expr)) {
             auto val = eval_expr(env, unary->expr.get());
@@ -199,6 +229,9 @@ class Interpreter {
         return EvalResult();
     }
 
+    /**
+     * @brief Print a string even with {func('param')} in it
+    */
     std::string to_print(Environment *env, Expr *expr) {
         auto ret = std::string();
         if (auto str = dynamic_cast<StringExpr *>(expr)) {
