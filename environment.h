@@ -1,6 +1,9 @@
 #pragma once
 #include "ast.h"
 #include <unordered_map>
+/**
+ * @brief Environment for storing variables
+ */
 class Environment {
     std::unordered_map<std::string, std::string> str_vals;
     std::unordered_map<std::string, double> num_vals;
@@ -8,6 +11,9 @@ class Environment {
 
   public:
     Environment() {}
+    /**
+     * @brief Get the value of a variable
+     */
     EvalResult get(std::string name) {
         if (str_vals.find(name) != str_vals.end()) {
             return EvalResult(str_vals[name]);
@@ -27,6 +33,9 @@ class Environment {
             return EvalResult();
         }
     }
+    /**
+     * @brief Set the value of a variable (string)
+     */
     bool set(std::string name, std::string value) {
         auto old = str_vals.find(name);
         if (old != str_vals.end()) {
@@ -37,6 +46,22 @@ class Environment {
             return false;
         }
     }
+    /**
+     * @brief Set the value of a variable (const char *)
+     */
+    bool set(std::string name, const char *value) {
+        auto old = str_vals.find(name);
+        if (old != str_vals.end()) {
+            old->second = value;
+            return true;
+        } else {
+            str_vals[name] = value;
+            return false;
+        }
+    }
+    /**
+     * @brief Set the value of a variable (number)
+     */
     bool set(std::string name, double value) {
         auto old = num_vals.find(name);
         if (old != num_vals.end()) {
@@ -47,6 +72,9 @@ class Environment {
             return false;
         }
     }
+    /**
+     * @brief Set the value of a variable (bool)
+     */
     bool set(std::string name, bool value) {
         auto old = bool_vals.find(name);
         if (old != bool_vals.end()) {
@@ -57,6 +85,9 @@ class Environment {
             return false;
         }
     }
+    /**
+     * @brief Set the value of a variable (EvalResult)
+     */
     bool set(std::string name, EvalResult value) {
         switch (value.type) {
         case ValType_STRING:

@@ -51,7 +51,9 @@ int main(int argc, char const *argv[]) {
         std::cout << "parse failed" << std::endl;
         return 1;
     }
+#ifdef DEBUG
     std::cout << root->to_string() << std::endl;
+#endif
     // interpret
     Interpreter interpreter(root.get());
     interpreter.interpret();

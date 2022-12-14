@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/algorithm/string/replace.hpp>
 #include <string>
-
+#include <cassert>
 #include <map>
 #include <memory>
 #include <string>
@@ -19,7 +19,7 @@ enum ValType {
     ValTypeCount
 };
 struct EvalResult {
-    ValType type;
+    ValType type{ValType_STRING};
     std::string str_val{""};
     double num_val{0.0};
     bool bool_val{false};
@@ -200,7 +200,7 @@ struct StringExpr : Expr {
     StringExpr(std::string value) : value(value) {}
     std::string to_string() const {
         std::string s = value;
-        boost::replace_all(s, "\n", "\\n");
+        // boost::replace_all(s, "\n", "\\n");
         return s;
     }
 };
