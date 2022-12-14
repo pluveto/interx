@@ -2,7 +2,9 @@
     #include "parser.tab.hh"
     #define YY_DECL yy::parser::symbol_type yylex()
     void log(std::string message, std::string text){
+#ifdef DEBUG
         std::cout << message << ": " << text << std::endl;
+#endif
     }
 }
 

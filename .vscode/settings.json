@@ -71,6 +71,7 @@
         "complex": "cpp",
         "typeindex": "cpp",
         "*.ipp": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "cassert": "cpp"
     },
 }

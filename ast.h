@@ -2,6 +2,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <string>
 #include <cassert>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <string>

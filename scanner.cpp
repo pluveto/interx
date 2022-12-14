@@ -2,10 +2,12 @@
     #include "parser.tab.hh"
     #define YY_DECL yy::parser::symbol_type yylex()
     void log(std::string message, std::string text){
+#ifdef DEBUG
         std::cout << message << ": " << text << std::endl;
+#endif
     }
 
-#line 9 "scanner.cpp"
+#line 11 "scanner.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -478,7 +480,7 @@ char *yytext;
 #line 1 "scanner.l"
 
 #define YY_NO_INPUT 1
-#line 482 "scanner.cpp"
+#line 484 "scanner.cpp"
 
 #define INITIAL 0
 
@@ -693,10 +695,10 @@ YY_DECL
 		}
 
 	{
-#line 11 "scanner.l"
+#line 13 "scanner.l"
 
 
-#line 700 "scanner.cpp"
+#line 702 "scanner.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -752,146 +754,146 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 13 "scanner.l"
+#line 15 "scanner.l"
 { log("token=STRING", yytext); return yy::parser::make_STRING(yytext);}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 14 "scanner.l"
+#line 16 "scanner.l"
 { log("token=STRING", yytext); return yy::parser::make_STRING(yytext);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 15 "scanner.l"
+#line 17 "scanner.l"
 { log("token=NUMBER", yytext); return yy::parser::make_NUMBER(yytext);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "scanner.l"
+#line 20 "scanner.l"
 { log("token=LOR", yytext); return yy::parser::make_LOR(yytext); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "scanner.l"
+#line 21 "scanner.l"
 { log("token=LAND", yytext); return yy::parser::make_LAND(yytext); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 20 "scanner.l"
+#line 22 "scanner.l"
 { log("token=EQ", yytext); return yy::parser::make_EQ(yytext); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 23 "scanner.l"
 { log("token=NE", yytext); return yy::parser::make_NE(yytext); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 22 "scanner.l"
+#line 24 "scanner.l"
 { log("token=GT", yytext); return yy::parser::make_GT(yytext); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 23 "scanner.l"
+#line 25 "scanner.l"
 { log("token=LT", yytext); return yy::parser::make_LT(yytext); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 24 "scanner.l"
+#line 26 "scanner.l"
 { log("token=GE", yytext); return yy::parser::make_GE(yytext); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "scanner.l"
+#line 27 "scanner.l"
 { log("token=LE", yytext); return yy::parser::make_LE(yytext); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 26 "scanner.l"
+#line 28 "scanner.l"
 { log("token=PLUS", yytext); return yy::parser::make_PLUS(yytext); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 27 "scanner.l"
+#line 29 "scanner.l"
 { log("token=MINUS", yytext); return yy::parser::make_MINUS(yytext); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 28 "scanner.l"
+#line 30 "scanner.l"
 { log("token=MUL", yytext); return yy::parser::make_MUL(yytext); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 29 "scanner.l"
+#line 31 "scanner.l"
 { log("token=DIV", yytext); return yy::parser::make_DIV(yytext); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 30 "scanner.l"
+#line 32 "scanner.l"
 { log("token=PAREN_L", yytext); return yy::parser::make_PAREN_L(yytext); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 31 "scanner.l"
+#line 33 "scanner.l"
 { log("token=PAREN_R", yytext); return yy::parser::make_PAREN_R(yytext); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 32 "scanner.l"
+#line 34 "scanner.l"
 { log("token=COMMA", yytext); return yy::parser::make_COMMA(yytext); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 34 "scanner.l"
+#line 36 "scanner.l"
 { log("token=ID", yytext); return yy::parser::make_ID(yytext); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 37 "scanner.l"
+#line 39 "scanner.l"
 { log("token=ASSIGN", yytext); return yy::parser::make_ASSIGN(yytext); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 38 "scanner.l"
+#line 40 "scanner.l"
 { log("token=DOT", yytext); return yy::parser::make_DOT(yytext); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 39 "scanner.l"
+#line 41 "scanner.l"
 { log("token=BRACKET_L_DOT", yytext);  return yy::parser::make_BRACKET_L_DOT(yytext); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 40 "scanner.l"
+#line 42 "scanner.l"
 { log("token=BRACKET_L", yytext); return yy::parser::make_BRACKET_L(yytext); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 41 "scanner.l"
+#line 43 "scanner.l"
 { log("token=BRACKET_R", yytext); return yy::parser::make_BRACKET_R(yytext); }
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
-#line 42 "scanner.l"
+#line 44 "scanner.l"
 { log("token=NEWLINE", "\\n"); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 43 "scanner.l"
+#line 45 "scanner.l"
 { log("token=WHITESPACE", yytext); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 44 "scanner.l"
+#line 46 "scanner.l"
 { return yy::parser::make_QUIT(); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 48 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 895 "scanner.cpp"
+#line 897 "scanner.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1858,6 +1860,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 46 "scanner.l"
+#line 48 "scanner.l"
 
 
