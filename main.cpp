@@ -46,7 +46,7 @@ int main(int argc, char const *argv[]) {
             [&]() {
                 if (yyin != nullptr) {
                     fclose(yyin);
-                }            });
+                }});
     // -- check if file is valid
     if (yyin == nullptr) {
         std::cout << "failed to open file: " << filename << std::endl;

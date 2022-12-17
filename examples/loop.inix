@@ -1,0 +1,25 @@
+[EntryNode]
+[.Hint]
+enter=("This is a program to calculate the sum of 1 to N.
+Input number N:")
+[.Storage]
+sum = 0
+cur = 0
+N = str2num($input)
+[.Trans]
+LoopNode = (true)
+
+[LoopNode]
+[.Storage]
+N = load('N')
+cur = load('cur') + 1
+sum = load('sum') + cur
+[.Trans]
+EndNode = (cur >= N)
+LoopNode = (cur < N)
+
+[EndNode]
+[.Hint]
+enter=("The sum is: {load('sum')}")
+[.Trans]
+$term = (uncond)

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/interx.out",
-            "args": ["examples/demo.inix"],
+            "args": ["examples/loop.inix"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

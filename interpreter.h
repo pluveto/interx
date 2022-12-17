@@ -86,8 +86,11 @@ class Interpreter {
     }
     Section *interpret_node(Section *node) {
         auto hint = node->get_subsection("Hint");
-        auto enterHint = to_print(&(envs[node]), hint->get_prop("enter"));
-        std::cout << enterHint << std::endl;
+        std::string enterHint;
+        if (hint) {
+            enterHint = to_print(&(envs[node]), hint->get_prop("enter"));
+            std::cout << enterHint << std::endl;
+        }
         // if has uncond node, go to it
         Section *uncondNode;
         bool term;
@@ -104,10 +107,11 @@ class Interpreter {
 #endif
             return uncondNode;
         }
-        std::string input;
-        std::cin >> input;
-        envs[node].set("$input", input);
-
+        if (!enterHint.empty()) {
+            std::string input;
+            std::cin >> input;
+            envs[node].set("$input", input);
+        }
         if (auto storage = node->get_subsection("Storage")) {
             for (auto &&kv : storage->properties) {
                 auto id = kv.first;
@@ -130,6 +134,11 @@ class Interpreter {
                 } else if (key == "$term") {
                     ret = nullptr;
                 } else {
+                    // check if key is in nodes
+                    if (nodes.find(key) == nodes.end()) {
+                        std::cerr << "No such node: " << key << std::endl;
+                        exit(EXIT_FAILURE);
+                    }
                     ret = nodes[key];
                 }
                 break;
@@ -231,8 +240,11 @@ class Interpreter {
 
     /**
      * @brief Print a string even with {func('param')} in it
-    */
+     */
     std::string to_print(Environment *env, Expr *expr) {
+        if (nullptr == expr) {
+            return std::string();
+        }
         auto ret = std::string();
         if (auto str = dynamic_cast<StringExpr *>(expr)) {
             ret = str->value;
